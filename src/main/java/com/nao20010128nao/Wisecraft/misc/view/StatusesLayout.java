@@ -60,6 +60,7 @@ public class StatusesLayout extends View
 	}
 	
 	private void relayout(){
+		if(getVisibility()!=VISIBLE)return;
 		invalidate();
 	}
 	private void redye(){
@@ -104,6 +105,14 @@ public class StatusesLayout extends View
 	
 	private boolean isInvalid(){
 		return statuses==null|colors==null;
+	}
+
+	@Override
+	public void setVisibility(int visibility) {
+		// TODO: Implement this method
+		boolean willRelayout=(visibility==VISIBLE&getVisibility()!=visibility);
+		super.setVisibility(visibility);
+		if(willRelayout)relayout();
 	}
 	
 	@Override
