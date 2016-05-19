@@ -108,7 +108,7 @@ public class StatusesLayout extends View
 	@Override
 	public void setVisibility(int visibility) {
 		// TODO: Implement this method
-		boolean willRelayout=(visibility==VISIBLE&getVisibility()!=visibility);
+		boolean willRelayout=(visibility==VISIBLE&getVisibility()!=VISIBLE);
 		super.setVisibility(visibility);
 		if(willRelayout)redraw();
 	}
