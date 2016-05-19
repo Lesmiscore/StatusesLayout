@@ -59,18 +59,15 @@ public class StatusesLayout extends View
 		setup(ctx);
 	}
 	
-	private void relayout(){
+	private void redraw(){
 		if(getVisibility()!=VISIBLE)return;
 		invalidate();
-	}
-	private void redye(){
-		relayout();
 	}
 	
 	
 	public void setColors(int... color){
 		colors=Arrays.copyOf(color,color.length);
-		redye();
+		redraw();
 	}
 	public void setColorRes(int... res){
 		int[] c=new int[res.length];
@@ -86,21 +83,21 @@ public class StatusesLayout extends View
 	}
 	public void setStatuses(int... stat){
 		statuses=wrap(stat);
-		relayout();
+		redraw();
 	}
 	public void setStatusAt(int ofs,int val){
 		statuses.set(ofs,val);
-		redye();
+		redraw();
 	}
 	public void addStatuses(int... values){
 		statuses.addAll(wrap(values));
-		relayout();
+		redraw();
 	}
 	public void removeStatus(int ofs){
 		try {
 			ArrayList.class.getMethod("remove", int.class).invoke(statuses, ofs);
 		} catch (Throwable e) {}
-		relayout();
+		redraw();
 	}
 	
 	private boolean isInvalid(){
@@ -112,7 +109,7 @@ public class StatusesLayout extends View
 		// TODO: Implement this method
 		boolean willRelayout=(visibility==VISIBLE&getVisibility()!=visibility);
 		super.setVisibility(visibility);
-		if(willRelayout)relayout();
+		if(willRelayout)redraw();
 	}
 	
 	@Override
