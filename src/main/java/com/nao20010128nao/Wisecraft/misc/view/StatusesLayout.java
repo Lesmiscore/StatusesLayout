@@ -84,7 +84,6 @@ public class StatusesLayout extends View
 	}
 	public void setStatuses(int... stat){
 		statuses=wrap(stat);
-		recalculateSize();
 		redraw();
 	}
 	public void setStatusAt(int ofs,int val){
@@ -93,22 +92,13 @@ public class StatusesLayout extends View
 	}
 	public void addStatuses(int... values){
 		statuses.addAll(wrap(values));
-		recalculateSize();
 		redraw();
 	}
 	public void removeStatus(int ofs){
 		try {
 			ArrayList.class.getMethod("remove", int.class).invoke(statuses, ofs);
 		} catch (Throwable e) {}
-		recalculateSize();
 		redraw();
-	}
-	private void recalculateSize(){
-		if(statuses.size()==0){
-			oneComp=0;
-			return;
-		}
-		oneComp=BigDecimal.valueOf(getWidth()).divide(BigDecimal.valueOf(statuses.size()),10,RoundingMode.DOWN).floatValue();
 	}
 	
 	private boolean isInvalid(){
@@ -133,6 +123,7 @@ public class StatusesLayout extends View
 			canvas.drawRect(0,0,canvas.getWidth(),canvas.getHeight(),paint);
 			return;
 		}
+		float oneComp=BigDecimal.valueOf(getWidth()).divide(BigDecimal.valueOf(statuses.size()),10,RoundingMode.DOWN).floatValue();
 		for(int i=0;i<statuses.size();i++){
 			paint.setColor(colors[statuses.get(i)]);
 			canvas.drawRect(oneComp*i,0,oneComp*(i+1),canvas.getHeight(),paint);
