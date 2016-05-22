@@ -1,29 +1,14 @@
 package com.nao20010128nao.Wisecraft.misc.view;
-import android.widget.LinearLayout;
+import java.util.*;
+
 import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup;
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.AppCompatImageView;
-import android.util.AttributeSet;
-import java.util.Arrays;
-import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
-import com.nao20010128nao.StatusesLayout.R;
-import android.content.res.TypedArray;
-import android.support.v4.content.res.ResourcesCompat;
-import android.widget.FrameLayout;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import java.math.BigInteger;
+import android.support.v4.content.ContextCompat;
+import android.util.AttributeSet;
+import android.view.View;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.ArrayList;
-import java.lang.reflect.InvocationTargetException;
 
 
 public class StatusesLayout extends View
@@ -101,6 +86,10 @@ public class StatusesLayout extends View
 		redraw();
 	}
 	
+	public int[] getStatuses(){
+		return unwrap(statuses);
+	}
+	
 	private boolean isInvalid(){
 		return statuses==null|colors==null;
 	}
@@ -135,5 +124,10 @@ public class StatusesLayout extends View
 		ArrayList<Integer> result=new ArrayList<>(array.length);
 		for(int i:array)result.add(i);
 		return result;
+	}
+	private int[] unwrap(List<Integer> array){
+		int[] data=new int[array.size()];
+		for(int i=0;i<data.length;i++)data[i]=array.get(i);
+		return data;
 	}
 }
