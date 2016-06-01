@@ -1,14 +1,11 @@
 package com.nao20010128nao.Wisecraft.misc.view;
+import android.content.*;
+import android.graphics.*;
+import android.support.v4.content.*;
+import android.util.*;
+import android.view.*;
+import java.math.*;
 import java.util.*;
-
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.support.v4.content.ContextCompat;
-import android.util.AttributeSet;
-import android.view.View;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 
 public class StatusesLayout extends View
