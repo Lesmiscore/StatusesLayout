@@ -86,6 +86,9 @@ public class StatusesLayout extends View
 	public int[] getStatuses(){
 		return unwrap(statuses);
 	}
+	public int getStatusAt(int ofs){
+		return statuses.get(ofs);
+	}
 	
 	private boolean isInvalid(){
 		return statuses==null|colors==null;
