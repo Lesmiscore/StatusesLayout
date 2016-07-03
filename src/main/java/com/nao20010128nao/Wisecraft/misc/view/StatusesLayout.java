@@ -6,15 +6,20 @@ import android.util.*;
 import android.view.*;
 import java.math.*;
 import java.util.*;
+import android.widget.*;
 
 
 public class StatusesLayout extends View
 {
+	public static final int DIRECTION_VERTICAL=LinearLayout.VERTICAL;
+	public static final int DIRECTION_HORIZONTAL=LinearLayout.HORIZONTAL;
+	
 	int[] colors;
 	List<Integer> statuses;
 	Context ctx;
 	Paint paint;
 	float oneComp;
+	int direction=DIRECTION_HORIZONTAL;
 	
 	public StatusesLayout(Context context) {
 		super(context);
@@ -29,6 +34,14 @@ public class StatusesLayout extends View
     public StatusesLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context,attrs,defStyleAttr);
 		setup(context,attrs);
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	public int getDirection() {
+		return direction;
 	}
 
 	
@@ -96,7 +109,6 @@ public class StatusesLayout extends View
 
 	@Override
 	public void setVisibility(int visibility) {
-		// TODO: Implement this method
 		boolean willRelayout=(visibility==VISIBLE&getVisibility()!=VISIBLE);
 		super.setVisibility(visibility);
 		if(willRelayout)redraw();
@@ -104,7 +116,6 @@ public class StatusesLayout extends View
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// TODO: Implement this method
 		if(isInvalid())return;
 		if(statuses.size()==0){
 			if(colors.length==0)return;//nothing to do
@@ -112,10 +123,23 @@ public class StatusesLayout extends View
 			canvas.drawRect(0,0,canvas.getWidth(),canvas.getHeight(),paint);
 			return;
 		}
-		float oneComp=BigDecimal.valueOf(getWidth()).divide(BigDecimal.valueOf(statuses.size()),10,RoundingMode.DOWN).floatValue();
-		for(int i=0;i<statuses.size();i++){
-			paint.setColor(colors[statuses.get(i)]);
-			canvas.drawRect(oneComp*i,0,oneComp*(i+1),canvas.getHeight(),paint);
+		switch(direction){
+			case DIRECTION_HORIZONTAL:{
+					float oneComp=BigDecimal.valueOf(canvas.getWidth()).divide(BigDecimal.valueOf(statuses.size()),10,RoundingMode.DOWN).floatValue();
+					for(int i=0;i<statuses.size();i++){
+						paint.setColor(colors[statuses.get(i)]);
+						canvas.drawRect(oneComp*i,0,oneComp*(i+1),canvas.getHeight(),paint);
+					}
+					break;
+				}
+			case DIRECTION_VERTICAL:{
+					float oneComp=BigDecimal.valueOf(canvas.getHeight()).divide(BigDecimal.valueOf(statuses.size()),10,RoundingMode.DOWN).floatValue();
+					for(int i=0;i<statuses.size();i++){
+						paint.setColor(colors[statuses.get(i)]);
+						canvas.drawRect(0,oneComp*i,canvas.getWidth(),oneComp*(i+1),paint);
+					}
+					break;
+				}
 		}
 	}
 	
