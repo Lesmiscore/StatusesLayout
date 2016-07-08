@@ -62,7 +62,7 @@ public class StatusesLayout extends View
 	
 	
 	public void setColors(int... color){
-		colors=Arrays.copyOf(color,color.length);
+		colors=copyOf(color);
 		redraw();
 	}
 	public void setColorRes(int... res){
@@ -153,5 +153,11 @@ public class StatusesLayout extends View
 		int[] data=new int[array.size()];
 		for(int i=0;i<data.length;i++)data[i]=array.get(i);
 		return data;
+	}
+	
+	private static int[] copyOf(int[] a){
+		int[] r=new int[a.length];
+		System.arraycopy(a,0,r,0,a.length);
+		return r;
 	}
 }
