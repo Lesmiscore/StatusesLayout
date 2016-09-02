@@ -89,12 +89,20 @@ public class StatusesLayout extends View
 		statuses.addAll(wrap(values));
 		redraw();
 	}
+    public void addStatusAt(int stat,int ofs){
+        statuses.add(ofs,stat);
+        redraw();
+    }
 	public void removeStatus(int ofs){
 		try {
 			ArrayList.class.getMethod("remove", int.class).invoke(statuses, ofs);
 		} catch (Throwable e) {}
 		redraw();
-	}
+    }
+	public void moveStatus(int from,int to){
+        statuses.add(to,statuses.get(from));
+        redraw();
+    }
 	
 	public int[] getStatuses(){
 		return unwrap(statuses);
