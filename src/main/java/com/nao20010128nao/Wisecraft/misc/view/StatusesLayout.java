@@ -100,7 +100,7 @@ public class StatusesLayout extends View
 		redraw();
     }
 	public void moveStatus(int from,int to){
-        statuses.add(to,statuses.get(from));
+        statuses.add(to,statuses.remove(from));
         redraw();
     }
 	
